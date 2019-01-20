@@ -1,0 +1,14 @@
+sensors:
+  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    point_cloud_topic: /kinect2/qhd/points
+    max_range: 5.0
+    point_subsample: 1
+    padding_offset: 0.1
+    padding_scale: 1.0
+    max_update_rate: 1.0
+    filtered_cloud_topic: filtered_cloud
+
+# 作者：梅林傲雪
+# 链接：https://www.jianshu.com/p/dcc7fe02e55e
+# 來源：简书
+# 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。

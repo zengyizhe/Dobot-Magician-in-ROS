@@ -1,0 +1,9 @@
+<rosparam command="load" file="$(find dobot_moveit_config)/config/sensors_kinect.yaml" />
+  <param name="octomap_frame" type="string" value="odom_combined" />
+  <param name="octomap_resolution" type="double" value="0.05" />
+  <param name="max_range" type="double" value="5.0" />
+<!-- 
+作者：梅林傲雪
+链接：https://www.jianshu.com/p/dcc7fe02e55e
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。 -->
