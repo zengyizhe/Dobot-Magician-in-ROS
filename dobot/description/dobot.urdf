@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<robot name="dobot" xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz" xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint" xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model" xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics" xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable" xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor">
+	<property name="PI" value="3.1415926535897931"/>
+	<property name="joint12_degree" value="0.0"/>
+	<property name="joint23_degree" value="0.0"/>
+	<property name="joint34_degree" value="90.0"/>
+	<material name="blue">
+		<color rgba="0 0 1 1"/>
+	</material>
+	<material name="green">
+		<color rgba="0 1 0 1"/>
+	</material>
+	<material name="red">
+		<color rgba="1 0 0 1"/>
+	</material>
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+	<material name="yellow">
+		<color rgba="1 1 0 1"/>
+	</material>
+	<material name="black">
+		<color rgba="0 0 0 1"/>
+	</material>
+	
+    <link name="world"/>
+
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<box size="0.158 0.16 0.058"/>//base is 0.16*0.16*0.056</geometry>
+
+			<origin rpy="0 0 0" xyz=" 0 0 0.029"/>
+			<material name="black"/>
+		</visual>
+        <collision>
+			<geometry>
+				<box size="0.158 0.16 0.058"/>//base is 0.16*0.16*0.056</geometry>
+
+			<origin rpy="0 0 0" xyz="0 0 0.029"/>
+		</collision>
+   <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.029"/>
+      <inertia ixx="0.0027" iyy="0.0027" izz="0.005" ixy="0" ixz="0" iyz="0"/>
+  </inertial>
+	</link>
+
+	<link name="link2">
+		<visual>
+			<geometry>
+				<cylinder length="0.08" radius="0.07"/>//link2 is radius 0.07 and height 0.08</geometry>
+				<origin rpy="0 0 0" xyz="0 0 0.04"/>//link2 z + 1/2 h_itself
+
+
+				<material name="white"/></visual>
+
+		<collision>
+			<geometry>
+				<cylinder length="0.08" radius="0.07"/>//link2 is radius 0.07 and height 0.08</geometry>
+				<origin rpy="0 0 0" xyz="0 0 0.04"/>//link2 z + 1/2 h_itself
+
+
+		</collision>
+         
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+      <inertia ixx="0.02146" iyy="0.02146" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+   </inertial>
+
+	</link>
+	
+	<link name="link3">
+		<visual>
+			<geometry>
+				<box size="0.04 0.04 0.135"/>//link3 is 0.07*0.04*0.14</geometry>
+			<origin rpy="0 0 0" xyz="-0.02 0 0.0675"/>//link3 z + 1/2 h_itself, x - 1/2 l_itself
+       
+			
+			<material name="black"/></visual>
+
+		<collision>
+			<geometry>
+				<box size="0.04 0.04 0.135"/>//link3 is 0.07*0.04*0.14</geometry>
+			<origin rpy="0 0 0" xyz="-0.02 0 0.0675"/>//link3 z + 1/2 h_itself, x - 1/2 l_itself
+	       
+			
+		</collision>
+
+		<inertial>
+      <mass value="1.0"/>
+      <origin rpy="0 0 0" xyz="-0.02 0 0.0675"/>
+      <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+	</link>
+	
+	<link name="link4">
+		<visual>
+			<geometry>
+				<box size="0.04 0.04 0.147"/>//link4 is 0.07*0.04*0.14</geometry>
+			<origin rpy="0 0 0" xyz="-0.02 0 0.0735"/>//link4 z + 1/2 h_itself, x - 1/2 l_itself
+       
+			
+			<material name="white"/></visual>
+			<collision>
+			<geometry>
+				<box size="0.04 0.04 0.147"/>//link4 is 0.07*0.04*0.14</geometry>
+			<origin rpy="0 0 0" xyz="-0.02 0 0.0735"/>//link4 z + 1/2 h_itself, x - 1/2 l_itself
+       
+			
+		    </collision>
+
+		    <inertial>
+             <mass value="1.0"/>
+             <origin rpy="0 0 0" xyz="-0.02 0 0.0735"/>
+             <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+           </inertial>
+	</link>
+
+	<link name="link5">
+		<visual>
+			<geometry>
+				<box size="0.02 0.02 0.02"/>//link5 is 0.09*0.05*0.07
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 -0.01"/>//link5 z + 1/2 h_itself, x - 1/2 l_itself
+       
+			
+			<material name="black"/>
+		</visual>
+
+			<collision>
+			<geometry>
+				<box size="0.02 0.02 0.02"/>//link5 is 0.09*0.05*0.07
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 -0.01"/>//link5 z + 1/2 h_itself, x - 1/2 l_itself
+       
+			
+			</collision>
+
+			<inertial>
+             <mass value="1.0"/>
+             <origin rpy="0 0 0" xyz="0 0 -0.01"/>
+             <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+           </inertial>
+	</link>
+	
+
+    <joint name="joint1_world" type="fixed" >
+        <parent link="world"/>
+		<child link="base_link"/> </joint>
+	<joint name="joint12" type="revolute">
+		<axis xyz="0 0 1"/>
+		<parent link="base_link"/>
+		<child link="link2"/>
+		<limit effort="30" lower="-1.4079632679" upper="1.40079632679" velocity="5.58505360638"/>
+		<origin rpy="0 0 0" xyz="0 0 0.058"/>//joint12 z + 1/2 h_parent; rpy z is the rotate angle</joint>
+	<joint name="joint23" type="revolute">
+		<axis xyz="0 1 0"/>
+		<parent link="link2"/>
+		<child link="link3"/>
+		<limit effort="30" lower="0.0" upper="1.305298642" velocity="5.58505360638"/>
+		<origin rpy="0 0 0" xyz="0 0 0.08"/>//joint23 z + h_parent;  rpy y is the rotate angle</joint>
+	<joint name="joint34" type="revolute">
+		<axis xyz="0 1 0"/>
+		<parent link="link3"/>
+		<child link="link4"/>
+		<limit effort="30" lower="-0.16453292519" upper="1.47079632679" velocity="5.58505360638"/>
+		<origin rpy="0 1.57079632679 0" xyz="0 0 0.135"/>//joint34 z + h_parent; rpy y is the rotate angle</joint>
+	<joint name="joint45" type="revolute">
+        <axis xyz="0 1 0"/>
+        <parent link="link4"/>
+        <child link="link5"/>
+		<limit effort="30" lower="-1.4079632679" upper="1.40079632679" velocity="5.58505360638"/>
+
+     <origin xyz="0 0 0.147" rpy="0 -1.57079632679 0" /> //joint34 ; rpy y is the rotate angle
+ </joint>	
+
+
+	<transmission name="tran0">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1_world">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor0">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint12">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint23">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint34">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+ <transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint45">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+   <gazebo>
+    <plugin name="control" filename="libgazebo_ros_control.so"/>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <jointName> joint12, joint23, joint34,joint45</jointName>
+    </plugin>
+  </gazebo>
+</robot>

@@ -1,0 +1,18 @@
+<launch>
+
+<!--   <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find dobot)/rviz/urdf_nomoveit.rviz" />
+
+
+  <param name="robot_description" textfile="/home/zyz/dobot_ws/src/dobot/description/dobot.urdf" />  
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+-->
+  <node name="DobotServer" pkg="dobot" type="DobotServer" args="ttyUSB0"/>
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  -->
+   <node name="joy_node" pkg="joy" type="joy_node"/>
+  <node name="DobotClient_JoyCtrl" pkg="dobot" type="DobotClient_JoyCtrl"/>
+ 
+</launch>

@@ -1,0 +1,9 @@
+arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:    
+    - joint12
+    - joint23
+    - joint34
+    - joint45
+
+    

@@ -1,0 +1,65 @@
+
+<launch>
+    <arg name="namespace_prefix" default="dobot_calibration" />
+ 
+
+    <arg name="marker_size" doc="Size of the ArUco marker used, in meters" default="0.08" />
+    <arg name="marker_id" doc="The ID of the ArUco marker used" default="100" />
+    <!-- start the Kinect -->
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+ 
+    <!-- start ArUco -->
+    <node name="aruco_tracker" pkg="aruco_ros" type="single">
+        <remap from="/camera_info" to="/kinect2/hd/camera_info" />
+        <remap from="/image" to="/kinect2/hd/image_color_rect" />
+        <param name="image_is_rectified" value="true"/>
+        <param name="marker_size"        value="$(arg marker_size)"/>
+        <param name="marker_id"          value="$(arg marker_id)"/>
+        <param name="reference_frame"    value="kinect2_rgb_optical_frame"/>
+        <param name="camera_frame"       value="kinect2_rgb_optical_frame"/>
+        <param name="marker_frame"       value="camera_marker" />
+    </node>
+ 
+    <!-- start the robot -->
+   <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find dobot)/rviz/urdf.rviz" />
+
+  <param name="robot_description" textfile="/home/zyz/dobot_ws/src/dobot/description/dobot.urdf" />  
+  <param name="use_gui" value="$(arg gui)"/>
+<!--   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+ --> 
+  <node name="DobotServer" pkg="dobot" type="DobotServer" args="ttyUSB0" output="screen"/>
+  <node name="DobotClient_Returnzero" pkg="dobot" type="DobotClient_Returnzero" />
+  <include file="$(find dobot)/launch/dobot_gazebo.launch"/> 
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher"/> -->
+  <node name="JointTrajectory_subscriber" pkg="dobot" type="JointTrajectory_subscriber"  output="screen"/>
+
+  <include file="$(find dobot_moveit_config)/launch/move_group.launch"/>
+  <include file="$(find dobot_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="config" value="True"/>
+  </include>
+   <!--  <include file="$(find ur_modern_driver)/launch/ur5_bringup.launch">
+        <arg name="limited" value="true" />
+        <arg name="robot_ip" value="192.168.199.106" />
+    </include>
+    <include file="$(find ur5_moveit_config)/launch/ur5_moveit_planning_execution.launch">
+        <arg name="limited" value="true" />
+    </include> -->
+ 
+    <!-- start easy_handeye -->
+    <include file="$(find easy_handeye)/launch/calibrate.launch" >
+        <arg name="namespace_prefix" value="$(arg namespace_prefix)" />
+        <arg name="eye_on_hand" value="false" />
+ 
+        <arg name="tracking_base_frame" value="kinect2_rgb_optical_frame" />
+        <arg name="tracking_marker_frame" value="camera_marker" />
+        <arg name="robot_base_frame" value="base_link" />
+        <arg name="robot_effector_frame" value="link5" />
+ 
+        <arg name="freehand_robot_movement" value="true" />
+        <arg name="robot_velocity_scaling" value="0.5" />
+        <arg name="robot_acceleration_scaling" value="0.2" />
+    </include>
+</launch>
+

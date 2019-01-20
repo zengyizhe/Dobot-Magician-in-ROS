@@ -1,0 +1,27 @@
+<!-- filename: start.launch -->
+
+<launch>
+    <!-- start the robot -->
+ <arg name="gui" default="true" />
+  <!-- <arg name="rvizconfig" default="$(find dobot)/rviz/urdf.rviz" />
+ -->
+  <param name="robot_description" textfile="/home/zyz/dobot_ws/src/dobot/description/dobot.urdf" />  
+  <param name="use_gui" value="$(arg gui)"/>
+  <node name="DobotServer" pkg="dobot" type="DobotServer" args="ttyUSB0" output="screen"/>
+    <include file="$(find dobot)/launch/dobot_gazebo.launch"/> 
+  <node name="JointTrajectory_subscriber" pkg="dobot" type="JointTrajectory_subscriber"  output="screen"/>
+
+  <include file="$(find dobot_moveit_config)/launch/move_group.launch"/>
+  <include file="$(find dobot_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="config" value="True"/>
+  </include>
+
+
+
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+ 
+    <include file="$(find dobot)/launch/hand_to_eye_calibration_publish.launch" />
+
+  <include file="$(find dobot)/launch/static_transform_publisher.launch" />
+
+</launch>
