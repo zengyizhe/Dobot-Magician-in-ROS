@@ -1,0 +1,12 @@
+<!-- Hand-made -->
+<launch>
+  <include file="$(find dobot)/launch/dobot_gazebo.launch"/>
+  <include file="$(find dobot_moveit_config)/launch/move_group.launch"/>
+  <include file="$(find dobot_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="config" value="True"/>
+  </include>
+   <node name="DobotServer" pkg="dobot" type="DobotServer" args="ttyUSB0" output="screen"/>
+     <node name="DobotClient_Returnzero" pkg="dobot" type="DobotClient_Returnzero" />
+   <node name="JointTrajectory_subscriber" pkg="dobot" type="JointTrajectory_subscriber"  output="screen"/>
+</launch>
+
